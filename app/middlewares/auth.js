@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-modul.exports = {
+module.exports = {
      auth : (req, res, next)=>{
           try {
                const decoded = jwt.verify(req.headers.token, 'secret');
