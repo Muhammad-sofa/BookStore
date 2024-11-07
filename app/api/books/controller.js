@@ -82,7 +82,27 @@ module.exports = {
                     title, price, category, author, published, stock, image, user:user
                });
 
-               res.status(201).json({message: 'Success Update Books', data: books});
+               res.status(200).json({message: 'Success Update Books', data: books});
+          } catch (error) {
+               next(error);
+          }
+     },
+
+     deleteBooks : async (req, res, next)=>{
+          try {
+               const books = await Book.findOne({
+                    where: {
+                         id: req.params.id},
+               });
+
+               if(!books){
+                    return res.status(404).json({message: 'id book not found'});
+               }
+
+               books.destroy();
+
+               res.status(200).json({message: 'Success Delete Books', data: books});
+
           } catch (error) {
                next(error);
           }
