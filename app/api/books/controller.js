@@ -27,4 +27,29 @@ module.exports = {
                next(error);
           }
      },
+
+     createBooks : async (req, res, next)=>{
+          try {
+               let user = req.user.id;
+               const {title, price, category, author, published, stock, image} = req.body;
+
+               const checkCategory = await Category.findOne({
+                    where: {
+                         id: category, 
+                         user: user},
+               });
+
+               if(!checkCategory){
+                    return res.status(404).json({message: 'Category not found'});
+               }
+
+               const books = await Book.create({
+                    title, price, category, author, published, stock, image, user:user
+               });
+
+               res.status(201).json({message: 'Success Create Books', data: books});
+          } catch (error) {
+               next(error);
+          }
+     }
 }
