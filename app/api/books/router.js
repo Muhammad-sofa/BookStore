@@ -6,5 +6,6 @@ const controller = require('./controller');
 /* GET home page. */
 router.get('/books', auth, controller.getAllBooks);
 router.post('/books', auth, controller.createBooks);
+router.put('/books/:id', auth, controller.updateBooks);
 
 module.exports = router;
