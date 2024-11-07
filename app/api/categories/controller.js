@@ -22,5 +22,18 @@ module.exports = {
           } catch (error) {
                next(error);
           }
-     }
+     },
+
+     updateCategories : async(req, res, next)=>{
+          try {
+               const {id} = req.params;
+               const {name} = req.body;
+               const checkCategory = await Category.findOne({where: {id, user: req.user.id}});
+
+               const categories = await Category.update({name:name});
+               res.status(200).json({message: 'Success Update Categories', data: categories});
+          } catch (error) {
+               next(error);
+          }
+     },
 }
